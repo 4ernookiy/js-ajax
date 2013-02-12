@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.issuetracker.training.org/Message"
+	xmlns:d4="http://www.issuetracker.training.org/Message">
+
+	<complexType name="Message">
+		<sequence>
+			<element name="addedBy" type="int"></element>
+			<element name="addDate" type="dateTime"></element>
+			<element name="text" type="string"></element>
+		</sequence>
+		<attribute name="id" type="int" use="required"></attribute>
+	</complexType>
+
+	<complexType name="Messages">
+		<sequence>
+			<element name="message" type="d4:Message" minOccurs="1"
+				maxOccurs="unbounded" />
+		</sequence>
+	</complexType>
+
+	<element name="messages" type="d4:Messages"></element>
+</schema>
