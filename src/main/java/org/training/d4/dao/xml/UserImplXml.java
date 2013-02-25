@@ -51,7 +51,9 @@ public class UserImplXml extends GenericDAOXml<User> implements IUserDao {
 		/** The role. */
 		ROLE,
 		/** The password. */
-		PASSWORD;
+		PASSWORD,
+		/** The urlfoto. */
+		URLFOTO;
 
 		/** The Constant stringToEnum. */
 		private static final Map<String, Tags> TO_ENUM = new HashMap<String, Tags>();
@@ -126,6 +128,9 @@ public class UserImplXml extends GenericDAOXml<User> implements IUserDao {
 			break;
 		case PASSWORD:
 			user.setPassword(valueTag);
+			break;
+		case URLFOTO:
+			user.setUrlFoto(valueTag);
 			break;
 		case USER:
 			getEntities().put(user.getId(), user);

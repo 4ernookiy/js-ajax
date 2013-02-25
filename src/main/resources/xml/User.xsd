@@ -31,15 +31,21 @@
 	<complexType name="User">
 		<sequence>
 			<element name="firstName" type="string" maxOccurs="1"
-				minOccurs="1"></element>
-			<element name="lastName" type="string" maxOccurs="1"
-				minOccurs="1"></element>
-			<element name="email" maxOccurs="1" minOccurs="1" type="d4:Email">
+				minOccurs="1">
 			</element>
-			<element name="role" maxOccurs="1" minOccurs="1" type="int">
+			<element name="lastName" type="string" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="email" maxOccurs="1" minOccurs="1"
+				type="d4:Email">
+			</element>
+			<element name="role" maxOccurs="1" minOccurs="1"
+				type="int">
 			</element>
 			<element name="password" type="d4:Password" maxOccurs="1"
-				minOccurs="1"></element>
+				minOccurs="1">
+			</element>
+			<element name="urlFoto" type="string" maxOccurs="1" minOccurs="1"></element>
 		</sequence>
 		<attribute name="id" type="int" use="required"></attribute>
 	</complexType>

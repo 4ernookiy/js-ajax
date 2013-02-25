@@ -14,6 +14,8 @@ public class User extends Bean {
 	private Role role;
 	/** The password. */
 	private String password;
+	/** The url foto. */
+	private String urlFoto;
 
 	/**
 	 * Instantiates a new user.
@@ -116,14 +118,31 @@ public class User extends Bean {
 		this.email = email;
 	}
 
+	/**
+	 * Gets the url foto.
+	 * @return the url foto
+	 */
+	public String getUrlFoto() {
+		return urlFoto;
+	}
+
+	/**
+	 * Sets the url foto.
+	 * @param urlFoto
+	 *            the new url foto
+	 */
+	public void setUrlFoto(String urlFoto) {
+		this.urlFoto = urlFoto;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "\nUser [id=" + getId() + ", " + firstName + " " + lastName + ", email: " + email
-				+ ", " + role + "]";
+		return "\nUser [id=" + getId() + ", " + firstName + " " + lastName + ", email: "
+				+ email + ", " + role + "]";
 	}
 
 }

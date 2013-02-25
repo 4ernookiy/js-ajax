@@ -8,6 +8,7 @@
     <email>i@tut.by</email>
     <role>0</role>
     <password>c4ca4238a0b923820dcc509a6f75849b</password>
+    <urlFoto>img/portrait-4.png</urlFoto>
   </user>
   <user id="2">
     <firstName>Petr</firstName>
@@ -15,6 +16,7 @@
     <email>p@tut.by</email>
     <role>1</role>
     <password>c4ca4238a0b923820dcc509a6f75849b</password>
+    <urlFoto>img/portrait-1.png</urlFoto>
   </user>
   <user id="3">
   	<firstName>Vasya</firstName>
@@ -22,5 +24,6 @@
   	<email>v@tut.by</email>
   	<role>1</role>
   	<password>c4ca4238a0b923820dcc509a6f75849b</password>
+    <urlFoto>img/contact-portrait.png</urlFoto>
   </user>
 </d4:users>
