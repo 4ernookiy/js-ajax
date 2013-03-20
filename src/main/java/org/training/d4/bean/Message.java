@@ -21,7 +21,6 @@ public class Message extends Bean {
 	 */
 	public Message() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -30,7 +29,6 @@ public class Message extends Bean {
 	 */
 	public Message(int id) {
 		super(id);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

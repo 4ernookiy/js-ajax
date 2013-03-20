@@ -13,7 +13,6 @@ public abstract class Bean {
 	 */
 	public Bean() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
