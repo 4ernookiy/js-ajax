@@ -1,27 +1,37 @@
 function createXHR() {
-	if (typeof XMLHttpRequest === 'undefined') {
-		XMLHttpRequest = function() {
-			try {
-				return new ActiveXObject("Msxml2.XMLHTTP.6.0");
-			} catch (e) {
-			}
-			try {
-				return new ActiveXObject("Msxml2.XMLHTTP.3.0");
-			} catch (e) {
-			}
-			try {
-				return new ActiveXObject("Msxml2.XMLHTTP");
-			} catch (e) {
-			}
-			try {
-				return new ActiveXObject("Microsoft.XMLHTTP");
-			} catch (e) {
-			}
-			throw new Error("This browser does not support XMLHttpRequest.");
-		};
+	if (XMLHttpRequest) {
+		// return standards XHR object
+		return new XMLHttpRequest();
 	}
-	return new XMLHttpRequest();
-}
+	// return IE XHR object
+	return new ActiveXObject("Microsoft.XMLHTTP");
+};
+
+var ajax = function(opts) {
+	opts = {
+		type : opts.type || "POST", // default method
+		url : opts.url || "First", // default name controller
+		onSuccess : opts.onSuccess || function() {
+		},
+		data : opts.data || "json", // default type return data
+		params : opts.params || "" // additional parameters for query
+	};
+	var xhr = createXHR();
+	xhr.open(opts.type, opts.url, true);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState == 4) {
+			debugger;
+			if (opts.data === 'json') {
+				opts.onSuccess(xhr.responseText);
+			} else if (opts.data === 'xml') {
+				opts.onSuccess(xhr.responseXML);
+			}
+		}
+	};
+	xhr.setRequestHeader("Content-Type",
+			"application/x-www-form-urlencoded; charset=UTF-8");
+	xhr.send(opts.params);
+};
 
 function createMessage(message) {
 	if (message == null)
@@ -55,48 +65,66 @@ function createMessage(message) {
 	row.appendChild(colData);
 	table.appendChild(row);
 	c.appendChild(table);
-
 	return c;
-}
+};
 
 function createPaginagion() {
 	var pagin = document.createElement("div");
 	pagin.className = 'pagination';
 	pagin.innerHTML = 'Result 1-12 of 44 <button class="button-number">1</button> <a>2</a> <a>3</a> <a>4</a> <button class="button-next">Next</button>';
 	return pagin;
-}
+};
 
-function doCompletion() {
-	req = createXHR();
-	req.onreadystatechange = handlerRequest;
-	req.open("post", "First", true);
-	req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	req.send("action=act&name1=value1&name2=value2");
-}
+function showMessage(messagesJson) {
+	debugger;
+	var ms = JSON.parse(messagesJson);
+	for ( var i = 0; i <= 5; i++) {
+		document.getElementById('rightcolumn')
+				.appendChild(createMessage(ms[i]));
+	}
+	document.getElementById('rightcolumn').appendChild(createPaginagion());
+};
 
-function handlerRequest() {
-	if (req.readyState == 4 && req.status == 200) {
-		var ms = JSON.parse(req.responseText);
-		// alert("status:" + req.status + " | " + ms[0].user.email);
-		/*
-		 * txt = "<table border='1'><tr><th>Foto</th><th>User</th><th>Message</th><th>Date</th></tr>";
-		 * var mes = createMessage(ms[0]); for ( var i = 0; i < ms.length; i++) {
-		 * var img = "<img src='" + ms[i].user.urlFoto + "' class='pull-left
-		 * img-posted'/>"; txt = txt + "<tr><td>" + img + "</td>"; txt =
-		 * txt + "<tr><td>" + ms[i].user.email + "</td>"; txt = txt + "<td>" +
-		 * ms[i].text + "</td>"; txt = txt + "<td>" + ms[i].date + "</td>";
-		 * txt = txt + "</tr>"; } txt = txt + "</table>";
-		 * document.getElementById('result').innerHTML = txt;
-		 */
-		for ( var i = 0; i < ms.length; i++) {
+/*
+ * ajax({ onSuccess: showMessage, params: "action=getList" });
+ */
+
+function ViewPage() {
+	this.countPerPage = 5; // в дальнейшем будет передаваться через аякс для указания количества сообщений на странице
+	this.messages = [];
+	this.page;
+
+	this.update = function (messagesJson) {
+		debugger;
+		var ms = JSON.parse(messagesJson);
+		this.messages[this.page] = ms;
+		this.show(this.page);
+		debugger;
+	};
+
+	this.show = function(page) { // page потом будет использоваться в парамметрах ajax
+		this.page = page;
+		if (this.messages[page] == null) {  // на этом месте потом вставлю хранилище... когда хоть это заработает
+			debugger;
+			ajax({ onSuccess: this.update, params: "action=getList&page=" + page });
+			alert(" waiting query!");
+			return;
+		}
+		debugger;
+		var ms = this.messages[page];
+		if (ms === null) {
+			alert("OOoo! all broken");
+			return;
+		}
+		
+		for ( var i = 0; i <= countPerPage; i++) {
 			document.getElementById('rightcolumn').appendChild(
 					createMessage(ms[i]));
 		}
-		document.getElementById('rightcolumn').appendChild(
-				createPaginagion());
-		
+		document.getElementById('rightcolumn').appendChild(createPaginagion());
+	};
+	
+};
 
-	}
-}
-
-doCompletion();
+var page = new ViewPage();
+page.show(1);

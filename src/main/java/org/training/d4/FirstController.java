@@ -31,32 +31,29 @@ public class FirstController extends AbstractController {
 	@Override
 	protected void performTask(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		try {
-//			try {
-//				Thread.sleep( 1000 );
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-			List<Message> messages = DaoFactory.getFactory().getIMessageDao().findAll();
-			// Message mes =
-			// Message message =
-			// DaoFactory.getFactory().getIMessageDao().findByID(1);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			String action = request.getParameter("action");
 			System.out.println(action);
-			System.out.println(request.getParameter("name1"));
-			Gson gson = new Gson();
-			String json = gson.toJson(messages);
+			String json = null;
+			if ("getList".equals(action)) {
+				List<Message> messages = DaoFactory.getFactory().getIMessageDao().findAll();
+				Gson gson = new Gson();
+				json = gson.toJson(messages);
+			}
 			// System.out.println(json);
 			// Type listMessageType = new TypeToken<List<Message>>() { }
 			// .getType();
 			// List<Message> listFromJson = gson.fromJson(json,
 			// listMessageType);
-			System.out.println(json);
-			response.setContentType("application/x-json");
 			// response.setCharacterEncoding("UTF-8");
+			response.setContentType("application/x-json");
 			response.getWriter().write(json);
+			System.out.println(json);
 		} catch (DaoException e) {
 			LOG.error(e);
 		}
