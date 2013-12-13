@@ -32,11 +32,11 @@ public class FirstController extends AbstractController {
 	protected void performTask(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			// try {
+			// 	Thread.sleep(1000);
+			// } catch (InterruptedException e) {
+			// 	e.printStackTrace();
+			// }
 			String action = request.getParameter("action");
 			System.out.println(action);
 			String json = null;
